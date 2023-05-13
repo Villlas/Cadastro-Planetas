@@ -1,6 +1,12 @@
 #include <iostream>
+#include <stdlib.h>
+#include <string.h>
+
 
 using namespace std;
+
+#define TAM 100
+#define LOCAL "Data/dataBase.csv"
 
 template <typename T>
 struct node
@@ -52,13 +58,12 @@ template <typename T>
 void PrintList(list<T> &lst, void (*funcPrint)(T))
 {
     node<T> *aux = lst.begin;
-    cout << endl;
     while (aux != nullptr)
     {
         funcPrint(aux->data);
         aux = aux->next;
     }
-    cout << endl;
+    cout << "\n-------------------------------" << endl;
 }
 
 template <typename T>
@@ -112,4 +117,6 @@ void remove(list<T> &lst, u_int32_t position)
     delete aux;
     lst.count--;
 }
+
+
 
