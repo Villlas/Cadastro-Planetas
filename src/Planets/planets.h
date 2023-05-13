@@ -5,7 +5,7 @@ using namespace std;
 
 struct Planet
 {
-    int Id;
+    u_int16_t Id;
     char Name[TAM_CHARS];
     char Type[TAM_CHARS];
     char Galaxy[TAM_CHARS];
