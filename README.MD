@@ -8,7 +8,7 @@ Projeto da faculdade para a Matéria de Estrutura de Dados 1
 
 -*Resumo*-
 # Esse projeto tem como objetivo, além de aprendizado, fazer um sistema de cadastro de planetas,
-# os quais têm como atributos: nome, ano de descoberta, Tipo(Rochoso, gasoso, etc..) e galáxia pertencente.
+# os quais têm como atributos: id, nome, Tipo(Rochoso, gasoso, etc..) e galáxia pertencente.
 
 
 # Utilidades:
