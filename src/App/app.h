@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 using namespace std;
 
 #define TAM 100
@@ -118,5 +117,14 @@ void remove(list<T> &lst, u_int32_t position)
     lst.count--;
 }
 
+template <typename T>
+void bubbleSort(list<T> &lst)
+{
+    return;
+}
 
-
+template <typename T>
+void quickSort()
+{
+    return;
+}
