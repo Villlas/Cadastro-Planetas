@@ -1,6 +1,7 @@
 #include <iostream>
-#include "src/App/app.h"
-#include "src/Models/planets.h"
+#include "App/App.h"
+#include "models/Planets.h"
+
 
 using namespace std;
 
@@ -8,7 +9,8 @@ int main()
 {
     list<Planet> planetas;
     readPlanets(planetas);
-    PrintList(planetas, printPlanet);
+    cout << planetas.count << endl;
+    QuickSort(planetas, 0, planetas.count);
     CleanMemory(planetas);
     return 0;
 }

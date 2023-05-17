@@ -1,6 +1,8 @@
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
+#include <utility>
+
 
 using namespace std;
 
@@ -78,53 +80,85 @@ node<T> *get(list<T> lst, u_int32_t position)
         cout << e << endl;
     }
 
-    int now = 0;
     node<T> *aux = lst.begin;
-    while (now < position)
-    {
-        now++;
+    for (int i = 0; i < position; i++)
         aux = aux->next;
-    }
 
     return aux;
 }
 
 template <typename T>
-void remove(list<T> &lst, u_int32_t position)
+void Remove(list<T> &lst, u_int32_t position)
 {
-    try
+
+    if (position >= lst.count)
     {
-        if (position >= lst.count)
-            throw "Posição inválida!";
+        cout << "Posição inválida" << endl;
+        return;
     }
-    catch (string e)
+
+    if (lst.count == 0)
     {
-        cout << e << endl;
+        cout << "A lista está vazia" << endl;
         return;
     }
 
     node<T> *aux = get(lst, position);
-    if (aux->next != nullptr)
-        aux->next->previous = aux->previous;
-    else
-        lst.end = aux->previous;
-
-    if (aux->previous != nullptr)
-        aux->previous->next = aux->next;
-    else
-        lst.begin = aux->next;
+    (aux->next != nullptr) ? aux->next->previous = aux->previous : lst.end = aux->previous;
+    (aux->previous != nullptr) ? aux->previous->next = aux->next : lst.begin = aux->next;
     delete aux;
     lst.count--;
 }
 
 template <typename T>
-void bubbleSort(list<T> &lst)
+void swapNode(list<T> &lst, u_int32_t positionA, u_int32_t positionB)
 {
-    return;
+    node<T> *nodeA = get(lst, positionA);
+    node<T> *nodeB = get(lst, positionB);
+    T aux = nodeA->data;
+    nodeA->data = nodeA->data;
+    nodeB->data = aux;
 }
+/* template <typename T>
+node<T> *partition(list<T> &lst)
+{
+    Planet pivot = lst.end->data;
+    node *aux = lst.begin;
+
+    for (node *temp = lst.begin)
+} */
+
+
+
 
 template <typename T>
-void quickSort()
+void insertIdVector(list<T> &lst, int *vector)
 {
-    return;
+    int i = 0;
+    node<T> *aux = lst.begin;
+    while (aux != nullptr)
+    {
+        vector[i] = aux->data.Id;
+        i++;
+        aux = aux->next;
+    }
+}
+template <typename T>
+void BubbleSort(list<T> &lst, int (*funcComp)(T, T))
+{
+    bool isOrder = false;
+    while (!isOrder)
+    {
+        isOrder = true;
+        for (int i = 1; i < lst.count; i++)
+        {
+            node<T> *nodeA = get(lst, i - 1);
+            node<T> *nodeB = get(lst, i);
+            if (funcComp(nodeA->data, nodeB->data) > 0)
+            {
+                isOrder = false;
+                swap(lst, i, i - 1);
+            }
+        }
+    }
 }
