@@ -1,12 +1,15 @@
 #include <iostream>
+#include <stdlib.h>
+#include <string.h>
 
-#define TAM 100
 
 using namespace std;
+#define TAM 100
+#define LOCAL "Data/dataBase.csv"
 
 struct Planet
 {
-    u_int32_t Id;
+    int Code;
     char Name[TAM];
     char Type[TAM];
     char Galaxy[TAM];
@@ -15,7 +18,7 @@ struct Planet
 void printPlanet(Planet planet)
 {
     cout << "-------------------------------" << endl;
-    cout << "ID: " << planet.Id << endl;
+    cout << "Código: " << planet.Code << endl;
     cout << "Nome: " << planet.Name << endl;
     cout << "Tipo: " << planet.Type << endl;
     cout << "Galaxia pertencente: " << planet.Galaxy;
@@ -53,7 +56,7 @@ void readPlanets(list<T> &lst)
         memset(temp, 0, TAM);
         int pos = searchChar(';', 0, str);
         strncpy(temp, str, pos);
-        atual.Id = atoi(temp);
+        atual.Code = atoi(temp);
 
         // Copiando o nome
         memset(temp, 0, TAM);
@@ -80,47 +83,7 @@ void readPlanets(list<T> &lst)
     fclose(fptr);
 }
 
-void swapPlanet(Planet *p1, Planet *p2)
+int comparePlanets(Planet p1, Planet p2)
 {
-    Planet temp;
-    temp = *p1;
-    *p1 = *p2;
-    *p2 = temp;
-}
-
-template <typename T>
-void QuickSort(list<T> &lst, int began, int end)
-{
-    int i, j;
-    i = began;
-    j = end - 1;
-    Planet pivot;
-    node<T> *temp = get(lst, (began + end) / 2);
-    pivot = temp->data;
-    while (i <= j)
-    {
-        node<T> *aux1 = get(lst, i);
-        while (aux1->data.Id < pivot.Id && i < end && aux1 != nullptr)
-        {
-            i++;
-            aux1 = aux1->next;
-        }
-        node<T> *aux2 = get(lst, j);
-        while (aux2->data.Id > pivot.Id && j > began && aux2 != nullptr)
-        {
-            j--;
-            aux2 = aux2->next;
-        }
-        if (i <= j)
-        {
-            swapPlanet(&(aux1->data), &(aux2->data));
-            i++;
-            j--;
-        }
-    }
-    if (j > began)
-        QuickSort(lst, began, j + 1);
-    if (i < end)
-        QuickSort(lst, i, end);
-
+    return strcmp(p1.Name, p2.Name);
 }

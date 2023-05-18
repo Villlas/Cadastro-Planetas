@@ -1,13 +1,9 @@
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
-#include <utility>
-
 
 using namespace std;
 
-#define TAM 100
-#define LOCAL "Data/dataBase.csv"
 
 template <typename T>
 struct node
@@ -64,7 +60,7 @@ void PrintList(list<T> &lst, void (*funcPrint)(T))
         funcPrint(aux->data);
         aux = aux->next;
     }
-    cout << "\n-------------------------------" << endl;
+    cout << "-------------------------------" << endl;
 }
 
 template <typename T>
@@ -111,38 +107,15 @@ void Remove(list<T> &lst, u_int32_t position)
 }
 
 template <typename T>
-void swapNode(list<T> &lst, u_int32_t positionA, u_int32_t positionB)
+void swap(list<T> &lst, int positionA, int positionB)
 {
-    node<T> *nodeA = get(lst, positionA);
-    node<T> *nodeB = get(lst, positionB);
-    T aux = nodeA->data;
-    nodeA->data = nodeA->data;
-    nodeB->data = aux;
+    node<T> *node1 = get(lst, positionA);
+    node<T> *node2 = get(lst, positionB);
+    T aux = node1->data;
+    node1->data = node2->data;
+    node2->data = aux;
 }
-/* template <typename T>
-node<T> *partition(list<T> &lst)
-{
-    Planet pivot = lst.end->data;
-    node *aux = lst.begin;
 
-    for (node *temp = lst.begin)
-} */
-
-
-
-
-template <typename T>
-void insertIdVector(list<T> &lst, int *vector)
-{
-    int i = 0;
-    node<T> *aux = lst.begin;
-    while (aux != nullptr)
-    {
-        vector[i] = aux->data.Id;
-        i++;
-        aux = aux->next;
-    }
-}
 template <typename T>
 void BubbleSort(list<T> &lst, int (*funcComp)(T, T))
 {
@@ -160,5 +133,45 @@ void BubbleSort(list<T> &lst, int (*funcComp)(T, T))
                 swap(lst, i, i - 1);
             }
         }
+    }
+}
+
+template <typename T>
+void swapNode(node<T> *nodeA, node<T> *nodeB)
+{
+    T aux = nodeA->data;
+    nodeA->data = nodeB->data;
+    nodeB->data = aux;
+}
+
+template <typename T>
+node<T> *partition(node<T> *start, node<T> *end)
+{
+    int pivot = end->data.Code;
+    node<T> *i = start->previous;
+
+    for (node<T> *j = start; j != end; j = j->next)
+    {
+        if (j->data.Code <= pivot)
+        {
+            i = (i == nullptr) ? start : i->next;
+            swapNode(i, j);
+        }
+    }
+    i = (i == nullptr) ? start : i->next;
+    swapNode(i, end);
+
+    return i;
+}
+
+template <typename T>
+void quickSort(node<T> *start, node<T> *end)
+{
+    if (end != nullptr && start != end && start != end->next)
+    {
+        node<T> *pivot = partition(start, end);
+
+        quickSort(start, pivot->previous);
+        quickSort(pivot->next, end);
     }
 }
