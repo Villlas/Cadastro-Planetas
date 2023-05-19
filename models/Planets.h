@@ -1,9 +1,10 @@
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
-
+#include <fstream>
 
 using namespace std;
+
 #define TAM 100
 #define LOCAL "Data/dataBase.csv"
 
@@ -32,8 +33,7 @@ int searchChar(char letter, int posi, char *line)
     return atual;
 }
 
-template <typename T>
-void readPlanets(list<T> &lst)
+void readPlanets(list<Planet> &lst)
 {
     FILE *fptr;
 
@@ -86,4 +86,24 @@ void readPlanets(list<T> &lst)
 int comparePlanets(Planet p1, Planet p2)
 {
     return strcmp(p1.Name, p2.Name);
+}
+
+void splitPlanets(const Planet &planet, char *result, int resultSize)
+{
+    snprintf(result, resultSize, "%d;%s;%s;%s", planet.Code, planet.Name, planet.Type, planet.Galaxy);
+}
+
+void writePlanets(list<Planet> &lst)
+{
+    ofstream arquivo;
+
+    node<Planet> *aux = list.begin;
+    arquivo.open(LOCAL);
+    char temp[TAM * 2];
+    for (int i = 0; i < lst.count; i++)
+    {
+        memset(temp, 0, TAM * 2);
+        splitPlanets(aux->data, temp, sizeof(temp));
+        
+    }
 }

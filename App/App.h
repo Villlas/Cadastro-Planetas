@@ -106,6 +106,7 @@ void Remove(list<T> &lst, u_int32_t position)
     lst.count--;
 }
 
+// Funções para implementar o bubble sort
 template <typename T>
 void swap(list<T> &lst, int positionA, int positionB)
 {
@@ -136,6 +137,7 @@ void BubbleSort(list<T> &lst, int (*funcComp)(T, T))
     }
 }
 
+// Funções responsáveis pelo quick sort
 template <typename T>
 void swapNode(node<T> *nodeA, node<T> *nodeB)
 {
