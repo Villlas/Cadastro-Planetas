@@ -16,7 +16,7 @@ struct Planet
     char Galaxy[TAM];
 };
 
-void printPlanet(Planet planet)
+void printPlanet(const Planet planet)
 {
     cout << "-------------------------------" << endl;
     cout << "Código: " << planet.Code << endl;
@@ -25,6 +25,10 @@ void printPlanet(Planet planet)
     cout << "Galaxia pertencente: " << planet.Galaxy;
 }
 
+void PrintRemove(const Planet planet)
+{
+    cout << planet.Name << endl;
+}
 int searchChar(char letter, int posi, char *line)
 {
     int atual = posi;
@@ -83,7 +87,7 @@ void readPlanets(list<Planet> &lst)
     fclose(fptr);
 }
 
-int comparePlanets(Planet p1, Planet p2)
+int comparePlanets(const Planet p1, const Planet p2)
 {
     return strcmp(p1.Name, p2.Name);
 }
@@ -97,13 +101,43 @@ void writePlanets(list<Planet> &lst)
 {
     ofstream arquivo;
 
-    node<Planet> *aux = list.begin;
+    node<Planet> *aux = lst.begin;
     arquivo.open(LOCAL);
     char temp[TAM * 2];
     for (int i = 0; i < lst.count; i++)
     {
         memset(temp, 0, TAM * 2);
         splitPlanets(aux->data, temp, sizeof(temp));
-        
+        arquivo << temp;
+        aux = aux->next;
     }
+
+    arquivo.close();
+}
+
+void _readInterger(int *value)
+{
+    while (!(cin >> *value))
+    {
+        cout << "Digite um valor inteiro válido!\n> ";
+        cin.clear();
+        cin.ignore(123, '\n');
+    }
+}
+
+void readNewPlanet(Planet *planet)
+{
+    char temp[TAM];
+    cout << "Digite o código do planetas\n> ";
+    _readInterger(&planet->Code);
+    cout << "Nome do planeta\n> ";
+    cin >> temp;
+    strcpy(planet->Name, temp);
+    cout << "Tipo do planeta\n> ";
+    cin >> temp;
+    strcpy(planet->Type, temp);
+    cout << "Galaxia pertencente\n> ";
+    cin.ignore();
+    fgets(temp, TAM, stdin);
+    strcpy(planet->Galaxy, temp);
 }

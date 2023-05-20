@@ -52,13 +52,17 @@ void CleanMemory(list<T> &lst)
 }
 
 template <typename T>
-void PrintList(list<T> &lst, void (*funcPrint)(T))
+void PrintList(list<T> &lst, void (*funcPrint)(T), bool showID = false)
 {
     node<T> *aux = lst.begin;
+    int id = 0;
     while (aux != nullptr)
     {
+        if (showID)
+            printf("[%d] ", id);
         funcPrint(aux->data);
         aux = aux->next;
+        id++;
     }
     cout << "-------------------------------" << endl;
 }
