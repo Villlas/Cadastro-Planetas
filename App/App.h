@@ -4,7 +4,6 @@
 
 using namespace std;
 
-
 template <typename T>
 struct node
 {
@@ -64,7 +63,7 @@ void PrintList(list<T> &lst, void (*funcPrint)(T), bool showID = false)
         aux = aux->next;
         id++;
     }
-    cout << "-------------------------------" << endl;
+    cout << endl;
 }
 
 template <typename T>
@@ -180,4 +179,11 @@ void quickSort(node<T> *start, node<T> *end)
         quickSort(start, pivot->previous);
         quickSort(pivot->next, end);
     }
+}
+
+// Funções Responsáveis Pela busca binária
+template <typename T>
+void binarySearch(list<T> &lst)
+{
+    return;
 }

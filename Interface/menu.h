@@ -3,7 +3,7 @@
 
 using namespace std;
 
-#define TAM_OPTIONS 6
+#define TAM_OPTIONS 7
 #define TAM_MAX 100
 
 char options[TAM_OPTIONS][TAM_MAX] =
@@ -12,8 +12,9 @@ char options[TAM_OPTIONS][TAM_MAX] =
         "[2] Alterar dados de um planeta",
         "[3] Remover um planeta",
         "[4] Buscar um planeta",
-        "[5] Mostrar planetas",
-        "[6] Sair do sistema"};
+        "[5] Mostrar dados de um planeta",
+        "[6] Mostrar planetas",
+        "[7] Sair do sistema"};
 
 void showMenu()
 {

@@ -19,3 +19,27 @@ os quais têm como atributos: id, nome, Tipo(Rochoso, gasoso, etc..) e galáxia 
     5 - Busca sequencial (**ainda em estudos**)
 
 **As entidades são salvas em um arquivo csv**
+
+# TUTORIAL 
+    1 - linux/MAC:
+        1.1 - instale o gcc com: 
+            $ sudo apt update -y
+            $ sudo apt upgrade -y
+            $ sudo apt install gcc
+        1.2 - Entre na pasta do arquivo main.cpp pelo terminal
+        1.3 - Execute o seguinte comando para compilar o aquivo
+            $ g++ -o main main.cpp
+        1.4 - Para executar o programa escreva o seguinte comando:
+            $ ./main
+
+    2 - Windows
+        2.1 Instale o mingw na sua máquina, pode seguir esse tutorial:
+            https://www.youtube.com/watch?v=1Uw9EV4Te8M&t=153s
+
+        2.2 Com a pasta aberta no terminal execute o seguinte comando  para compilar o arquivo
+            g++ main.cpp
+
+        2.3 Para executar o programa digite o seguinte comando no terminal
+            a.exe
+
+        

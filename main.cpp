@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include "App/App.h"
 #include "models/Planets.h"
-#include "Menu/menu.h"
+#include "Interface/menu.h"
 
 using namespace std;
 
@@ -32,7 +32,7 @@ int main()
         showMenu();
         cout << "> ";
         readInterger(&choose);
-        if (choose == 6)
+        if (choose == 7)
             break;
         switch (choose)
         {
@@ -42,35 +42,32 @@ int main()
             Append(planetas, newPlanet);
             break;
         case 2:
-            cout << "!Em produção!" << endl;
+            changePlanet(planetas);
             break;
         case 3:
-            int temp;
-            quickSort(planetas.begin, planetas.end);
-            PrintList(planetas, PrintRemove, true);
-            cin >> temp;
-            Remove(planetas, temp);
+            removePlanet(planetas);
             break;
         case 4:
+            //Busca Binária com dois elementos diferentes
             cout << "!Em produção!" << endl;
             break;
         case 5:
             system(SO);
-            cout << "Deseja organizar\n[1]ordem Alfábetica\n[2]Por Código\n> ";
-            readInterger(&choose);
-            if (choose == 1)
-                BubbleSort(planetas, comparePlanets);
-            else
-                quickSort(planetas.begin, planetas.end);
-            system(SO);
-            PrintList(planetas, printPlanet);
+            showOnePlanet(planetas);
             cin >> choose;
             break;
+        case 6:
+            system(SO);
+            showAllPlanets(planetas, SO);
+            cin >> choose;
+            break;
+
         default:
             cout << "Valor inexistente" << endl;
             break;
         }
     }
+    quickSort(planetas.begin, planetas.end);
     writePlanets(planetas);
     CleanMemory(planetas);
     return 0;

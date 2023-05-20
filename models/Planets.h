@@ -16,19 +16,21 @@ struct Planet
     char Galaxy[TAM];
 };
 
+// Função para orientar outras funções no app.h
 void printPlanet(const Planet planet)
 {
-    cout << "-------------------------------" << endl;
+    cout << endl;
     cout << "Código: " << planet.Code << endl;
     cout << "Nome: " << planet.Name << endl;
     cout << "Tipo: " << planet.Type << endl;
     cout << "Galaxia pertencente: " << planet.Galaxy;
 }
-
+// Função para orientar outras funções no app.h
 void PrintRemove(const Planet planet)
 {
     cout << planet.Name << endl;
 }
+
 int searchChar(char letter, int posi, char *line)
 {
     int atual = posi;
@@ -125,19 +127,64 @@ void _readInterger(int *value)
     }
 }
 
-void readNewPlanet(Planet *planet)
+// Para o arquivo main.cpp
+void readNewPlanet(Planet *newPlanet)
 {
     char temp[TAM];
     cout << "Digite o código do planetas\n> ";
-    _readInterger(&planet->Code);
+    _readInterger(&newPlanet->Code);
     cout << "Nome do planeta\n> ";
     cin >> temp;
-    strcpy(planet->Name, temp);
+    strcpy(newPlanet->Name, temp);
     cout << "Tipo do planeta\n> ";
     cin >> temp;
-    strcpy(planet->Type, temp);
+    strcpy(newPlanet->Type, temp);
     cout << "Galaxia pertencente\n> ";
     cin.ignore();
     fgets(temp, TAM, stdin);
-    strcpy(planet->Galaxy, temp);
+    strcpy(newPlanet->Galaxy, temp);
+}
+
+void showOnePlanet(list<Planet> &lst)
+{
+    int temp;
+    quickSort(lst.begin, lst.end);
+    PrintList(lst, PrintRemove, true);
+    cout << "Deseja ver dados de qual planeta?\n> ";
+    _readInterger(&temp);
+    node<Planet> *aux = get(lst, temp);
+    printPlanet((aux->data));
+}
+
+void changePlanet(list<Planet> &lst)
+{
+    int temp;
+    quickSort(lst.begin, lst.end);
+    PrintList(lst, PrintRemove, true);
+    cout << "Deseja alterar dados de qual planeta?\n> ";
+    _readInterger(&temp);
+    node<Planet> *aux = get(lst, temp);
+    readNewPlanet(&(aux->data));
+}
+
+void removePlanet(list<Planet> &lst)
+{
+    int temp;
+    quickSort(lst.begin, lst.end);
+    PrintList(lst, PrintRemove, true);
+    cin >> temp;
+    Remove(lst, temp);
+}
+
+void showAllPlanets(list<Planet> &lst, char SO[])
+{
+    int choose;
+    cout << "Deseja organizar\n[1]ordem Alfábetica (BubbleSort)\n[2]Por Código(quickSort)\n> ";
+    _readInterger(&choose);
+    if (choose == 1)
+        BubbleSort(lst, comparePlanets);
+    else
+        quickSort(lst.begin, lst.end);
+    system(SO);
+    PrintList(lst, printPlanet);
 }
