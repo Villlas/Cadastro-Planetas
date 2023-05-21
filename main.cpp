@@ -48,8 +48,8 @@ int main()
             removePlanet(planetas);
             break;
         case 4:
-            //Busca Binária com dois elementos diferentes
-            cout << "!Em produção!" << endl;
+            // Busca Binária com dois elementos diferentes
+            searchPlanet(planetas, SO);
             break;
         case 5:
             system(SO);
@@ -67,6 +67,7 @@ int main()
             break;
         }
     }
+
     quickSort(planetas.begin, planetas.end);
     writePlanets(planetas);
     CleanMemory(planetas);

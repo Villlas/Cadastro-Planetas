@@ -152,21 +152,29 @@ void swapNode(node<T> *nodeA, node<T> *nodeB)
 template <typename T>
 node<T> *partition(node<T> *start, node<T> *end)
 {
+    /*
+    Função partition é um complemento para a função quickSort, a qual tem a função
+    de escolher um elemento como um pivô, que no meu caso eu fiz escolhendo o último,
+    e durante a execução a função vai particionando a lista para que as entidades menores
+    que o pivô escolhido fique a esquerda e os maiores fiquem a direita do mesmo.
+    Esse homem indiano me salvou
+    https://www.youtube.com/watch?v=ms_rjPaUNqs&t=870s
+    */
     int pivot = end->data.Code;
-    node<T> *i = start->previous;
+    node<T> *aux1 = start->previous;
 
-    for (node<T> *j = start; j != end; j = j->next)
+    for (node<T> *aux2 = start; aux2 != end; aux2 = aux2->next)
     {
-        if (j->data.Code <= pivot)
+        if (aux2->data.Code <= pivot)
         {
-            i = (i == nullptr) ? start : i->next;
-            swapNode(i, j);
+            aux1 = (aux1 == nullptr) ? start : aux1->next;
+            swapNode(aux1, aux2);
         }
     }
-    i = (i == nullptr) ? start : i->next;
-    swapNode(i, end);
+    aux1 = (aux1 == nullptr) ? start : aux1->next;
+    swapNode(aux1, end);
 
-    return i;
+    return aux1;
 }
 
 template <typename T>
@@ -182,8 +190,36 @@ void quickSort(node<T> *start, node<T> *end)
 }
 
 // Funções Responsáveis Pela busca binária
-template <typename T>
-void binarySearch(list<T> &lst)
+//OBS Se for pesquisar por nome use o bubble sort para organizar
+template<typename T>
+node<T>* binarySearchRecursive(node<T>* start, node<T>* end, const T& searchData, bool byName)
 {
-    return;
+    if (start == nullptr || end == nullptr || start == end->next)
+        return nullptr;
+
+    node<T>* mid = start;
+    int cmp;
+
+    if (byName)
+    {
+        cmp = strcasecmp(mid->data.Name, searchData.Name);
+    }
+    else
+        cmp = (mid->data.Code == searchData.Code) ? 0 : (mid->data.Code < searchData.Code) ? -1 : 1;
+
+    if (cmp == 0)
+        return mid;
+    else if (cmp < 0)
+        return binarySearchRecursive(mid->next, end, searchData, byName);
+    else
+        return binarySearchRecursive(start, mid->previous, searchData, byName);
+}
+
+template<typename T>
+node<T>* binarySearch(list<T>& lst, const T& searchData, bool byName)
+{
+    node<T>* start = lst.begin;
+    node<T>* end = lst.end;
+
+    return binarySearchRecursive(start, end, searchData, byName);
 }

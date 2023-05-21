@@ -188,3 +188,59 @@ void showAllPlanets(list<Planet> &lst, char SO[])
     system(SO);
     PrintList(lst, printPlanet);
 }
+
+void searchPlanet(list<Planet> &lst, char SO[])
+{
+    // Busca Binária com dois elementos diferentes
+    int choice;
+    cout << "Deseja procurar por:" << endl;
+    cout << "1. Name" << endl;
+    cout << "2. Code\n> ";
+    _readInterger(&choice);
+
+    if (choice == 1)
+    {
+        BubbleSort(lst, comparePlanets);
+        char searchName[TAM];
+        cout << "Digite o nome do planeta que deseja procurar no banco\n> ";
+        cin >> searchName;
+        Planet searchPlanet;
+        strcpy(searchPlanet.Name, searchName);
+        node<Planet> *result = binarySearch(lst, searchPlanet, true);
+        if (result != nullptr)
+        {
+            cout << "Planeta Encontrado!" << endl;
+            printPlanet(result->data);
+            cin >> choice;
+            return;
+        }
+        cout << "Planeta não encontrado" << endl;
+        cin >> choice;
+    }
+    else if (choice == 2)
+    {
+        quickSort(lst.begin, lst.end);
+        int searchCode;
+        cout << "Enter planet code: ";
+        cin >> searchCode;
+
+        Planet searchPlanet;
+        searchPlanet.Code = searchCode;
+
+        node<Planet> *result = binarySearch(lst, searchPlanet, false);
+        if (result != nullptr)
+        {
+            cout << "Planeta Encontrado!" << endl;
+            printPlanet(result->data);
+            cin >> choice;
+            return;
+        }
+
+        cout << "Planet not found" << endl;
+        cin >> choice;
+    }
+    else
+    {
+        cout << "Escolha inválida!" << endl;
+    }
+}
