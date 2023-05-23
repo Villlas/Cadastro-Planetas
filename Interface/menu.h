@@ -32,3 +32,9 @@ void readInterger(int *value)
     }
 }
 
+void exitMod()
+{
+    cin.ignore();
+    cout << "Tecle ENTER para sair..";
+    cin.get();
+}

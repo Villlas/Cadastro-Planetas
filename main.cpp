@@ -50,16 +50,17 @@ int main()
         case 4:
             // Busca Binária com dois elementos diferentes
             searchPlanet(planetas, SO);
+            exitMod();
             break;
         case 5:
             system(SO);
             showOnePlanet(planetas);
-            cin >> choose;
+            exitMod();
             break;
         case 6:
             system(SO);
             showAllPlanets(planetas, SO);
-            cin >> choose;
+            exitMod();
             break;
 
         default:

@@ -61,6 +61,7 @@ void PrintList(list<T> &lst, void (*funcPrint)(T), bool showID = false)
             printf("[%d] ", id);
         funcPrint(aux->data);
         aux = aux->next;
+
         id++;
     }
     cout << endl;
@@ -190,14 +191,14 @@ void quickSort(node<T> *start, node<T> *end)
 }
 
 // Funções Responsáveis Pela busca binária
-//OBS Se for pesquisar por nome use o bubble sort para organizar
-template<typename T>
-node<T>* binarySearchRecursive(node<T>* start, node<T>* end, const T& searchData, bool byName)
+// OBS Se for pesquisar por nome use o bubble sort para organizar
+template <typename T>
+node<T> *binarySearchRecursive(node<T> *start, node<T> *end, const T &searchData, bool byName)
 {
     if (start == nullptr || end == nullptr || start == end->next)
         return nullptr;
 
-    node<T>* mid = start;
+    node<T> *mid = start;
     int cmp;
 
     if (byName)
@@ -205,7 +206,8 @@ node<T>* binarySearchRecursive(node<T>* start, node<T>* end, const T& searchData
         cmp = strcasecmp(mid->data.Name, searchData.Name);
     }
     else
-        cmp = (mid->data.Code == searchData.Code) ? 0 : (mid->data.Code < searchData.Code) ? -1 : 1;
+        cmp = (mid->data.Code == searchData.Code) ? 0 : (mid->data.Code < searchData.Code) ? -1
+                                                                                           : 1;
 
     if (cmp == 0)
         return mid;
@@ -215,11 +217,11 @@ node<T>* binarySearchRecursive(node<T>* start, node<T>* end, const T& searchData
         return binarySearchRecursive(start, mid->previous, searchData, byName);
 }
 
-template<typename T>
-node<T>* binarySearch(list<T>& lst, const T& searchData, bool byName)
+template <typename T>
+node<T> *binarySearch(list<T> &lst, const T &searchData, bool byName)
 {
-    node<T>* start = lst.begin;
-    node<T>* end = lst.end;
+    node<T> *start = lst.begin;
+    node<T> *end = lst.end;
 
     return binarySearchRecursive(start, end, searchData, byName);
 }

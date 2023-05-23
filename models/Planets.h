@@ -19,11 +19,15 @@ struct Planet
 // Função para orientar outras funções no app.h
 void printPlanet(const Planet planet)
 {
-    cout << endl;
-    cout << "Código: " << planet.Code << endl;
-    cout << "Nome: " << planet.Name << endl;
-    cout << "Tipo: " << planet.Type << endl;
-    cout << "Galaxia pertencente: " << planet.Galaxy;
+    cout << "   ____________________________________________" << endl;
+    cout << "   |                                          |" << endl;
+    cout << "     Código: " << planet.Code << endl;
+    cout << "     Nome: " << planet.Name << endl;
+    ;
+    cout << "     Tipo: " << planet.Type << endl;
+    ;
+    cout << "     Galaxia pertencente: " << planet.Galaxy;
+    cout << "   |__________________________________________|" << endl;
 }
 // Função para orientar outras funções no app.h
 void PrintRemove(const Planet planet)
@@ -134,7 +138,9 @@ void readNewPlanet(Planet *newPlanet)
     cout << "Digite o código do planetas\n> ";
     _readInterger(&newPlanet->Code);
     cout << "Nome do planeta\n> ";
-    cin >> temp;
+    cin.ignore();
+    fgets(temp, TAM, stdin);
+    temp[strcspn(temp, "\n")] = 0;
     strcpy(newPlanet->Name, temp);
     cout << "Tipo do planeta\n> ";
     cin >> temp;
@@ -192,55 +198,48 @@ void showAllPlanets(list<Planet> &lst, char SO[])
 void searchPlanet(list<Planet> &lst, char SO[])
 {
     // Busca Binária com dois elementos diferentes
+    system(SO);
     int choice;
     cout << "Deseja procurar por:" << endl;
-    cout << "1. Name" << endl;
-    cout << "2. Code\n> ";
+    cout << "1. Nome" << endl;
+    cout << "2. Código\n> ";
     _readInterger(&choice);
-
-    if (choice == 1)
+    Planet searchPlanet;
+    node<Planet> *result;
+    switch (choice)
     {
+    case 1:
         BubbleSort(lst, comparePlanets);
         char searchName[TAM];
         cout << "Digite o nome do planeta que deseja procurar no banco\n> ";
         cin >> searchName;
-        Planet searchPlanet;
         strcpy(searchPlanet.Name, searchName);
-        node<Planet> *result = binarySearch(lst, searchPlanet, true);
+        result = binarySearch(lst, searchPlanet, true);
         if (result != nullptr)
         {
             cout << "Planeta Encontrado!" << endl;
             printPlanet(result->data);
-            cin >> choice;
             return;
         }
         cout << "Planeta não encontrado" << endl;
-        cin >> choice;
-    }
-    else if (choice == 2)
-    {
+        break;
+    case 2:
         quickSort(lst.begin, lst.end);
         int searchCode;
-        cout << "Enter planet code: ";
+        cout << "Digite o código do planeta: ";
         cin >> searchCode;
 
-        Planet searchPlanet;
         searchPlanet.Code = searchCode;
-
-        node<Planet> *result = binarySearch(lst, searchPlanet, false);
+        result = binarySearch(lst, searchPlanet, false);
         if (result != nullptr)
         {
             cout << "Planeta Encontrado!" << endl;
             printPlanet(result->data);
-            cin >> choice;
             return;
         }
-
-        cout << "Planet not found" << endl;
-        cin >> choice;
-    }
-    else
-    {
-        cout << "Escolha inválida!" << endl;
+        cout << "Planeta não encontrado" << endl;
+        break;
+    default:
+        cout << "Escolha Inválida!" << endl;
     }
 }
