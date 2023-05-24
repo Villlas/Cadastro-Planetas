@@ -15,6 +15,12 @@ char options[TAM_OPTIONS][TAM_MAX] =
         "[5] Mostrar dados de um planeta",
         "[6] Mostrar planetas",
         "[7] Sair do sistema"};
+void banner()
+{
+    cout << "===============================" << endl;
+    cout << "  Banco de dados de planetas   " << endl;
+    cout << "===============================" << endl;
+}
 
 void showMenu()
 {

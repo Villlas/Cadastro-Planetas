@@ -29,6 +29,7 @@ int main()
     while (true)
     {
         system(SO);
+        banner();
         showMenu();
         cout << "> ";
         readInterger(&choose);
