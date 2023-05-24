@@ -95,7 +95,18 @@ void readPlanets(list<Planet> &lst)
 
 int comparePlanets(const Planet p1, const Planet p2)
 {
-    return strcmp(p1.Name, p2.Name);
+    char temp1[TAM];
+    char temp2[TAM];
+    int i;
+    for (i = 0; i < sizeof(p1.Name) ; i++)
+        temp1[i] = tolower(p1.Name[i]);  
+    temp1[i] = '\0';
+
+    for (i = 0; i < sizeof(p2.Name); i++)
+        temp2[i] = tolower(p2.Name[i]);
+    temp2[i] = '\0';
+
+    return strcmp(temp1, temp2);
 }
 
 void splitPlanets(const Planet &planet, char *result, int resultSize)
