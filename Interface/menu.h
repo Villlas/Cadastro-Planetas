@@ -18,7 +18,7 @@ char options[TAM_OPTIONS][TAM_MAX] =
 void banner()
 {
     cout << "===============================" << endl;
-    cout << "  Banco de dados de planetas   " << endl;
+    cout << "  Agência Espacial Brasileira  " << endl;
     cout << "===============================" << endl;
 }
 
@@ -40,7 +40,6 @@ void readInterger(int *value)
 
 void exitMod()
 {
-    cin.ignore();
-    cout << "Tecle ENTER para sair...";
+    cout << "\nTecle ENTER para voltar ao menu...";
     cin.get();
 }

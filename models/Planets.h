@@ -23,9 +23,7 @@ void printPlanet(const Planet planet)
     cout << "   |                                          |" << endl;
     cout << "     Código: " << planet.Code << endl;
     cout << "     Nome: " << planet.Name << endl;
-    ;
     cout << "     Tipo: " << planet.Type << endl;
-    ;
     cout << "     Galaxia pertencente: " << planet.Galaxy;
     cout << "   |__________________________________________|" << endl;
 }
@@ -51,7 +49,7 @@ void readPlanets(list<Planet> &lst)
 
     if (fptr == NULL)
     {
-        cout << "Not able to open the file." << endl;
+        cout << "Não foi possível abrir o arquivo" << endl;
         fclose(fptr);
         return;
     }
@@ -95,21 +93,10 @@ void readPlanets(list<Planet> &lst)
 
 int comparePlanets(const Planet p1, const Planet p2)
 {
-    char temp1[TAM];
-    char temp2[TAM];
-    int i;
-    for (i = 0; i < sizeof(p1.Name) ; i++)
-        temp1[i] = tolower(p1.Name[i]);  
-    temp1[i] = '\0';
-
-    for (i = 0; i < sizeof(p2.Name); i++)
-        temp2[i] = tolower(p2.Name[i]);
-    temp2[i] = '\0';
-
-    return strcmp(temp1, temp2);
+       return strcasecmp(p1.Name, p2.Name);
 }
 
-void splitPlanets(const Planet &planet, char *result, int resultSize)
+void splitPlanets(Planet &planet, char *result, int resultSize)
 {
     snprintf(result, resultSize, "%d;%s;%s;%s", planet.Code, planet.Name, planet.Type, planet.Galaxy);
 }
@@ -134,6 +121,7 @@ void writePlanets(list<Planet> &lst)
 
 void _readInterger(int *value)
 {
+    cout << "> ";
     while (!(cin >> *value))
     {
         cout << "Digite um valor inteiro válido!\n> ";
@@ -171,6 +159,7 @@ void showOnePlanet(list<Planet> &lst)
     _readInterger(&temp);
     node<Planet> *aux = get(lst, temp);
     printPlanet((aux->data));
+    cin.ignore();
 }
 
 void changePlanet(list<Planet> &lst)
@@ -189,8 +178,9 @@ void removePlanet(list<Planet> &lst)
     int temp;
     quickSort(lst.begin, lst.end);
     PrintList(lst, PrintRemove, true);
-    cin >> temp;
+    _readInterger(&temp);
     Remove(lst, temp);
+    cin.ignore();
 }
 
 void showAllPlanets(list<Planet> &lst, char SO[])
@@ -204,6 +194,7 @@ void showAllPlanets(list<Planet> &lst, char SO[])
         quickSort(lst.begin, lst.end);
     system(SO);
     PrintList(lst, printPlanet);
+    cin.ignore();
 }
 
 void searchPlanet(list<Planet> &lst, char SO[])

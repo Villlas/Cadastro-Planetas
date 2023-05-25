@@ -39,18 +39,27 @@ int main()
         {
         case 1:
             Planet newPlanet;
+            system(SO);
             readNewPlanet(&newPlanet);
             Append(planetas, newPlanet);
+            cout << newPlanet.Name << " Adcionado com sucesso";
+            exitMod();
             break;
         case 2:
+            system(SO);
             changePlanet(planetas);
+            exitMod();
             break;
         case 3:
+            system(SO);
             removePlanet(planetas);
+            cout << " Removido com sucesso" << endl;
+            exitMod();
             break;
         case 4:
             // Busca Binária com dois elementos diferentes
             searchPlanet(planetas, SO);
+            cin.ignore();
             exitMod();
             break;
         case 5:
