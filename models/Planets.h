@@ -175,7 +175,38 @@ void changePlanet(list<Planet> &lst)
     cout << "Deseja alterar dados de qual planeta?\n> ";
     _readInterger(&temp);
     node<Planet> *aux = get(lst, temp);
-    readNewPlanet(&(aux->data));
+    cout << "O que você deseja alterar?" << endl;
+    cout << "[1] Codigo" << endl;
+    cout << "[2] Nome" << endl;
+    cout << "[3] Tipo" << endl;
+    cout << "[4] Galaxia" << endl;
+    _readInterger(&temp);
+    switch (temp)
+    {
+    case 1:
+        cout << "Digite o novo Código do planeta" << endl;
+        _readInterger(&aux->data.Code);
+        break;
+    case 2:
+        cout << "Digite o novo nome do planeta" << endl;
+        cin.ignore();
+        fgets(aux->data.Name, TAM, stdin);
+        aux->data.Name[strcspn(aux->data.Name, "\n")] = 0;
+        break;
+    case 3:
+        cout << "Digite o novo nome do tipo\n> ";
+        cin >> aux->data.Type;
+        break;
+    case 4:
+        cout << "Digite o novo nome da galáxia\n";
+         cin.ignore();
+        fgets(aux->data.Galaxy, TAM, stdin);
+        aux->data.Name[strcspn(aux->data.Galaxy, "\n")] = 0;
+        break;
+    default:
+        cout << "Escolha inválida" << endl;
+        break;
+    }
 }
 
 void removePlanet(list<Planet> &lst)
