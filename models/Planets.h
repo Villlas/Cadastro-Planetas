@@ -93,7 +93,7 @@ void readPlanets(list<Planet> &lst)
 
 int comparePlanets(const Planet p1, const Planet p2)
 {
-       return strcasecmp(p1.Name, p2.Name);
+    return strcasecmp(p1.Name, p2.Name);
 }
 
 void splitPlanets(Planet &planet, char *result, int resultSize)
@@ -183,7 +183,7 @@ void removePlanet(list<Planet> &lst)
     cin.ignore();
 }
 
-void showAllPlanets(list<Planet> &lst, char SO[])
+void showAllPlanets(list<Planet> &lst, char *SO)
 {
     int choose;
     cout << "Deseja organizar\n[1]ordem Alfábetica (BubbleSort)\n[2]Por Código(quickSort)\n> ";
@@ -197,7 +197,7 @@ void showAllPlanets(list<Planet> &lst, char SO[])
     cin.ignore();
 }
 
-void searchPlanet(list<Planet> &lst, char SO[])
+void searchPlanetByBinary(list<Planet> &lst, char *SO)
 {
     // Busca Binária com dois elementos diferentes
     system(SO);
@@ -244,4 +244,17 @@ void searchPlanet(list<Planet> &lst, char SO[])
     default:
         cout << "Escolha Inválida!" << endl;
     }
+}
+
+void searchPlanetBySequencial(list<Planet> &lst, char *SO)
+{
+    system(SO);
+    int choice;
+    cout << "Deseja procurar por:" << endl;
+    cout << "1. Nome" << endl;
+    cout << "2. Código\n> ";
+    _readInterger(&choice);
+    Planet searchPlanet;
+    node<Planet> *result;
+    
 }

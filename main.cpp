@@ -58,7 +58,7 @@ int main()
             break;
         case 4:
             // Busca Binária com dois elementos diferentes
-            searchPlanet(planetas, SO);
+            searchPlanetByBinary(planetas, SO);
             cin.ignore();
             exitMod();
             break;
@@ -78,8 +78,6 @@ int main()
             break;
         }
     }
-
-    quickSort(planetas.begin, planetas.end);
     writePlanets(planetas);
     CleanMemory(planetas);
     return 0;

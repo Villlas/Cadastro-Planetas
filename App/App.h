@@ -193,7 +193,7 @@ void quickSort(node<T> *start, node<T> *end)
 // Funções Responsáveis Pela busca binária
 // OBS Se for pesquisar por nome use o bubble sort para organizar
 template <typename T>
-node<T> *binarySearchRecursive(node<T> *start, node<T> *end, const T &searchData, bool byName)
+node<T> *binarySearchRecursive(node<T> *start, node<T> *end, T &searchData, bool byName)
 {
     if (start == nullptr || end == nullptr || start == end->next)
         return nullptr;
@@ -218,10 +218,27 @@ node<T> *binarySearchRecursive(node<T> *start, node<T> *end, const T &searchData
 }
 
 template <typename T>
-node<T> *binarySearch(list<T> &lst, const T &searchData, bool byName)
+node<T> *binarySearch(list<T> &lst, T &searchData, bool byName)
 {
     node<T> *start = lst.begin;
     node<T> *end = lst.end;
 
     return binarySearchRecursive(start, end, searchData, byName);
 }
+
+template <typename T>
+node<T> sequentialSearch(list<T> &lst, T &searchData, int (*funcComp)(T &, T &))
+{
+    node<T> *aux = lst.begin;
+
+    while (aux != nullptr)
+    {
+        if (funcComp(aux->data, searchData) == 0)
+            return aux; // Se encontrar!
+        aux = aux->next;
+    }
+
+    // Caso não encontre nada!
+    return nullptr;
+}
+
