@@ -21,7 +21,7 @@ void printPlanet(const Planet planet)
 {
     cout << "   ____________________________________________" << endl;
     cout << "   |                                          |" << endl;
-    cout << "     Código: " << planet.Code << endl;
+    cout << "     Codigo: " << planet.Code << endl;
     cout << "     Nome: " << planet.Name << endl;
     cout << "     Tipo: " << planet.Type << endl;
     cout << "     Galaxia pertencente: " << planet.Galaxy;
@@ -96,7 +96,7 @@ int compareByName(Planet p1, Planet p2)
     return strcasecmp(p1.Name, p2.Name);
 }
 
-int compareById(Planet p1, Planet p2)
+int compareByCode(Planet p1, Planet p2)
 {
     return p1.Code - p2.Code;
 }
@@ -158,7 +158,7 @@ void readNewPlanet(Planet *newPlanet)
 void showOnePlanet(list<Planet> &lst)
 {
     int temp;
-    quickSort(lst.begin, lst.end, compareById);
+    quickSort(lst.begin, lst.end, compareByCode);
     PrintList(lst, PrintRemove, true);
     cout << "Deseja ver dados de qual planeta?\n> ";
     _readInterger(&temp);
@@ -170,7 +170,7 @@ void showOnePlanet(list<Planet> &lst)
 void changePlanet(list<Planet> &lst)
 {
     int temp;
-    quickSort(lst.begin, lst.end, compareById);
+    quickSort(lst.begin, lst.end, compareByCode);
     PrintList(lst, PrintRemove, true);
     cout << "Deseja alterar dados de qual planeta?\n> ";
     _readInterger(&temp);
@@ -181,7 +181,7 @@ void changePlanet(list<Planet> &lst)
 void removePlanet(list<Planet> &lst)
 {
     int temp;
-    quickSort(lst.begin, lst.end, compareById);
+    quickSort(lst.begin, lst.end, compareByCode);
     PrintList(lst, PrintRemove, true);
     _readInterger(&temp);
     Remove(lst, temp);
@@ -191,12 +191,12 @@ void removePlanet(list<Planet> &lst)
 void showAllPlanets(list<Planet> &lst, char *SO)
 {
     int choose;
-    cout << "Deseja organizar\n[1]ordem Alfábetica (BubbleSort)\n[2]Por Código(quickSort)\n> ";
+    cout << "Deseja organizar\n[1]ordem Alfabetica (BubbleSort)\n[2]Por Codigo(quickSort)\n> ";
     _readInterger(&choose);
     if (choose == 1)
         BubbleSort(lst, compareByName);
     else
-        quickSort(lst.begin, lst.end, compareByName);
+        quickSort(lst.begin, lst.end, compareByCode);
     system(SO);
     PrintList(lst, printPlanet);
     cin.ignore();
@@ -209,7 +209,7 @@ void searchPlanetByBinary(list<Planet> &lst, char *SO)
     int choice;
     cout << "Deseja procurar por:" << endl;
     cout << "[1] Nome" << endl;
-    cout << "[2] Código\n> ";
+    cout << "[2] Codigo\n> ";
     _readInterger(&choice);
     Planet searchPlanet;
     node<Planet> *result;
@@ -228,26 +228,26 @@ void searchPlanetByBinary(list<Planet> &lst, char *SO)
             printPlanet(result->data);
             return;
         }
-        cout << "Planeta não encontrado" << endl;
+        cout << "Planeta nao encontrado" << endl;
         break;
     case 2:
-        quickSort(lst.begin, lst.end, compareById);
+        quickSort(lst.begin, lst.end, compareByCode);
         int searchCode;
-        cout << "Digite o código do planeta: ";
+        cout << "Digite o codigo do planeta: ";
         cin >> searchCode;
 
         searchPlanet.Code = searchCode;
-        result = binarySearch(lst, searchPlanet, compareById);
+        result = binarySearch(lst, searchPlanet, compareByCode);
         if (result != nullptr)
         {
             cout << "Planeta Encontrado!" << endl;
             printPlanet(result->data);
             return;
         }
-        cout << "Planeta não encontrado" << endl;
+        cout << "Planeta nao encontrado" << endl;
         break;
     default:
-        cout << "Escolha Inválida!" << endl;
+        cout << "Escolha Invalida!" << endl;
     }
 }
 
@@ -257,16 +257,16 @@ void searchPlanetBySequencial(list<Planet> &lst, char *SO)
     int choice;
     cout << "Deseja procurar por:" << endl;
     cout << "[1] Nome" << endl;
-    cout << "[2] Código\n> ";
+    cout << "[2] Codigo\n> ";
     _readInterger(&choice);
     Planet searchPlanet;
     node<Planet> *result;
     switch (choice)
     {
     case 1:
-        quickSort(lst.begin, lst.end, compareById); // Para embaralhar a lista
+        quickSort(lst.begin, lst.end, compareByCode); // Para embaralhar a lista
         char searchName[TAM];
-        cout << "> ";
+        cout << "Digite o nome do planetas\n> ";
         cin >> searchName;
         strcpy(searchPlanet.Name, searchName);
         result = sequentialSearch(lst, searchPlanet, compareByName);
@@ -276,22 +276,23 @@ void searchPlanetBySequencial(list<Planet> &lst, char *SO)
             printPlanet(result->data);
             return;
         }
-        cout << "Planeta não encontrado" << endl;
+        cout << "Planeta nao encontrado" << endl;
         break;
 
     case 2:
         quickSort(lst.begin, lst.end, compareByName); // Para embaralhar a lista
         int searchCode;
-        cin >> searchCode;
+        cout << "Digite o codigo do planeta";
+        _readInterger(&searchCode);
         searchPlanet.Code = searchCode;
-        result = sequentialSearch(lst, searchPlanet, compareById);
+        result = sequentialSearch(lst, searchPlanet, compareByCode);
         if (result != nullptr)
         {
             cout << "Planeta Encontrado!" << endl;
             printPlanet(result->data);
             return;
         }
-        cout << "Planeta não encontrado" << endl;
+        cout << "Planeta nao encontrado" << endl;
         break;
 
     default:
@@ -304,7 +305,7 @@ void searchPlanet(list<Planet> &lst, char *SO)
     system(SO);
     int choice;
     cout << "Deseja procurar por:" << endl;
-    cout << "[1] Pesquisa Binária" << endl;
+    cout << "[1] Pesquisa Binaria" << endl;
     cout << "[2] Pesquisa Sequencial\n> ";
     _readInterger(&choice);
     if (choice == 1)

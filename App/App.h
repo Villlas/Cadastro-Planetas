@@ -48,6 +48,7 @@ void CleanMemory(list<T> &lst)
         lst.count--;
     }
     lst.begin = lst.end = nullptr;
+    cout << "Memoria limpa com sucesso" << endl;
 }
 
 template <typename T>
@@ -68,7 +69,7 @@ void PrintList(list<T> &lst, void (*funcPrint)(T), bool showID = false)
 }
 
 template <typename T>
-node<T> *get(list<T> lst, u_int32_t position)
+node<T> *get(list<T> lst, unsigned int position)
 {
     try
     {
@@ -88,7 +89,7 @@ node<T> *get(list<T> lst, u_int32_t position)
 }
 
 template <typename T>
-void Remove(list<T> &lst, u_int32_t position)
+void Remove(list<T> &lst, unsigned int position)
 {
 
     if (position >= lst.count)
