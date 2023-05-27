@@ -57,8 +57,7 @@ int main()
             exitMod();
             break;
         case 4:
-            // Busca Binária com dois elementos diferentes
-            searchPlanetByBinary(planetas, SO);
+            searchPlanet(planetas, SO);
             cin.ignore();
             exitMod();
             break;

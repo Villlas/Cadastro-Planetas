@@ -151,22 +151,15 @@ void swapNode(node<T> *nodeA, node<T> *nodeB)
 }
 
 template <typename T>
-node<T> *partition(node<T> *start, node<T> *end)
+node<T> *partition(node<T> *start, node<T> *end, int(*funcComp)(T, T))
 {
-    /*
-    Função partition é um complemento para a função quickSort, a qual tem a função
-    de escolher um elemento como um pivô, que no meu caso eu fiz escolhendo o último,
-    e durante a execução a função vai particionando a lista para que as entidades menores
-    que o pivô escolhido fique a esquerda e os maiores fiquem a direita do mesmo.
-    Esse homem indiano me salvou
-    https://www.youtube.com/watch?v=ms_rjPaUNqs&t=870s
-    */
-    int pivot = end->data.Code;
+
+    T pivot = end->data;
     node<T> *aux1 = start->previous;
 
     for (node<T> *aux2 = start; aux2 != end; aux2 = aux2->next)
     {
-        if (aux2->data.Code <= pivot)
+        if (funcComp(aux2->data, pivot) <= 0)
         {
             aux1 = (aux1 == nullptr) ? start : aux1->next;
             swapNode(aux1, aux2);
@@ -179,55 +172,46 @@ node<T> *partition(node<T> *start, node<T> *end)
 }
 
 template <typename T>
-void quickSort(node<T> *start, node<T> *end)
+void quickSort(node<T> *start, node<T> *end, int(*funcComp)(T, T))
 {
     if (end != nullptr && start != end && start != end->next)
     {
-        node<T> *pivot = partition(start, end);
+        node<T> *pivot = partition(start, end, funcComp);
 
-        quickSort(start, pivot->previous);
-        quickSort(pivot->next, end);
+        quickSort(start, pivot->previous, funcComp);
+        quickSort(pivot->next, end, funcComp);
     }
 }
 
-// Funções Responsáveis Pela busca binária
-// OBS Se for pesquisar por nome use o bubble sort para organizar
+
 template <typename T>
-node<T> *binarySearchRecursive(node<T> *start, node<T> *end, T &searchData, bool byName)
+node<T> *binarySearchRecursive(node<T> *start, node<T> *end, T &searchData, int (*funcComp)(T, T))
 {
     if (start == nullptr || end == nullptr || start == end->next)
         return nullptr;
 
     node<T> *mid = start;
-    int cmp;
+    int compResult = funcComp(mid->data, searchData);
 
-    if (byName)
-    {
-        cmp = strcasecmp(mid->data.Name, searchData.Name);
-    }
-    else
-        cmp = (mid->data.Code == searchData.Code) ? 0 : (mid->data.Code < searchData.Code) ? -1
-                                                                                           : 1;
-
-    if (cmp == 0)
+    if (compResult == 0)
         return mid;
-    else if (cmp < 0)
-        return binarySearchRecursive(mid->next, end, searchData, byName);
+    else if (compResult < 0)
+        return binarySearchRecursive(mid->next, end, searchData, funcComp);
     else
-        return binarySearchRecursive(start, mid->previous, searchData, byName);
+        return binarySearchRecursive(start, mid->previous, searchData, funcComp);
 }
 
 template <typename T>
-node<T> *binarySearch(list<T> &lst, T &searchData, bool byName)
+node<T> *binarySearch(list<T> &lst, T &searchData, int (*funcComp)(T, T))
 {
     node<T> *start = lst.begin;
     node<T> *end = lst.end;
 
-    return binarySearchRecursive(start, end, searchData, byName);
+    return binarySearchRecursive(start, end, searchData, funcComp);
 }
 
 template <typename T>
-node<T> sequentialSearch(list<T> &lst, T &searchData, int (*funcComp)(T &, T &))
+node<T> *sequentialSearch(list<T> &lst, T &searchData, int (*funcComp)(T, T))
 {
     node<T> *aux = lst.begin;
 
@@ -241,4 +225,3 @@ node<T> sequentialSearch(list<T> &lst, T &searchData, int (*funcComp)(T &, T &))
     // Caso não encontre nada!
     return nullptr;
 }
-
