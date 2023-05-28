@@ -141,7 +141,7 @@ void readNewPlanet(Planet *newPlanet)
     char temp[TAM];
     cout << "Digite o código do planetas\n> ";
     _readInterger(&newPlanet->Code);
-    cout << "Nome do planeta\n> ";
+    cout << "Nome do planeta (utilize \"-\" no lugar de espaço)\n> ";
     cin.ignore();
     fgets(temp, TAM, stdin);
     temp[strcspn(temp, "\n")] = 0;
@@ -188,7 +188,7 @@ void changePlanet(list<Planet> &lst)
         _readInterger(&aux->data.Code);
         break;
     case 2:
-        cout << "Digite o novo nome do planeta" << endl;
+        cout << "Digite o novo nome do planeta (utilize \"-\" no lugar de espaço)" << endl;
         cin.ignore();
         fgets(aux->data.Name, TAM, stdin);
         aux->data.Name[strcspn(aux->data.Name, "\n")] = 0;
